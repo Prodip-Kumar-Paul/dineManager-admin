@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
@@ -8,8 +9,10 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { green } from "@mui/material/colors";
 
 import signIn from "../../services/api/signin";
+import errorService from "../../services/error-service";
 
 function Copyright(props: any) {
   return (
@@ -43,9 +46,7 @@ interface Credentials {
 }
 
 export default function SignIn() {
-  const [email, setEmail] = useState<String>("");
-  const [password, setPasword] = useState<String>("");
-  const [hasError, setHasError] = useState<Boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [credentials, setCredentials] = useState<Credentials>({
     email: {
       value: "",
@@ -79,9 +80,21 @@ export default function SignIn() {
     }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    setIsLoading(true);
     event.preventDefault();
-    signIn(credentials.email.value, credentials.password.value);
+    try {
+      const res = await signIn(
+        credentials.email.value,
+        credentials.password.value
+      ) 
+      console.log(res);
+    } catch (err) {
+      if( err instanceof Error) {
+        errorService("Please provide correct credentials!");
+      }
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -143,6 +156,16 @@ export default function SignIn() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
+              {isLoading && (
+                <CircularProgress
+                  size={25}
+                  thickness={6}
+                  sx={{
+                    color: green[500],
+                    marginRight: "0.5rem",
+                  }}
+                />
+              )}
               Sign In
             </Button>
           </Box>
