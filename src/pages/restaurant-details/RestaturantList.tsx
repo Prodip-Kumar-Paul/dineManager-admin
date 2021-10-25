@@ -1,18 +1,24 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import CssBaseline from "@mui/material/CssBaseline";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { ListItemText } from "@mui/material";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  ListItemButton,
+} from "@mui/material";
 
-function ItemList(props: any) {
+import list from "../../services/api/list";
+import errorService from "../../services/error-service";
+
+const theme = createTheme();
+
+function ItemList() {
   return (
     <ListItem divider={true}>
       <ListItemButton>
@@ -42,9 +48,20 @@ function Copyright(props: any) {
     </Typography>
   );
 }
-const theme = createTheme();
+
+const fetchList = async () => {
+  try {
+    const res = await list();
+    console.log(res);
+  } catch (err) {
+    if (err instanceof Error) {
+      errorService("err in fetching data");
+    }
+  }
+};
 
 export default function RestaurantList() {
+  fetchList();
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
