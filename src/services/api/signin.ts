@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app";
-import {getAuth, signInWithEmailAndPassword} from "firebase/auth"
+import { initializeApp, } from "firebase/app";
+import {getAuth, signInWithEmailAndPassword, UserCredential} from "firebase/auth"
 
 import firebaseConfig from "../../firebase-config";
 
@@ -8,7 +8,7 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth();
 
-const signIn = (email: string, password: string) => {
+const signIn = (email: string, password: string): Promise<UserCredential> => {
     return new Promise((resolve, reject) => {
         signInWithEmailAndPassword(auth, email, password).then(res => {
             resolve(res);
