@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Signin from "../pages/signin/Signin";
 import RestaurantList from "../pages/restaurant-details/RestaturantList";
-import WebApp from "../layout/webapp";
+import WebApp from "../routes/webapp";
 
 
 import "./App.css";

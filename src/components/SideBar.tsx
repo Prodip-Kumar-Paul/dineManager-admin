@@ -14,7 +14,13 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-
+import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
+import LogoutIcon from "@mui/icons-material/Logout";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import ViewListIcon from "@mui/icons-material/ViewList";
+import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
+import LabelIcon from "@mui/icons-material/Label";
+import { Link } from "react-router-dom";
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -46,27 +52,21 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
+`;
+
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(["width", "margin"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -97,7 +97,6 @@ export default function SideBar() {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <Drawer variant="permanent" open={open}>
-        
         <DrawerHeader>
           {true && (
             <IconButton onClick={handleToggle}>
@@ -107,25 +106,47 @@ export default function SideBar() {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
+          <StyledLink to="/app/register">
+            <ListItem button key="registerNew">
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <AddBoxIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary="Add new restaurant" />
             </ListItem>
-          ))}
+          </StyledLink>
+          <StyledLink to="/app/list">
+            <ListItem button key="list">
+              <ListItemIcon>
+                <ViewListIcon />
+              </ListItemIcon>
+              <ListItemText primary="All resturants" />
+            </ListItem>
+          </StyledLink>
+          <StyledLink to="/app/templates">
+            <ListItem button key="templates">
+              <ListItemIcon>
+                <ChatBubbleIcon />
+              </ListItemIcon>
+              <ListItemText primary="Templates" />
+            </ListItem>
+          </StyledLink>
+          <StyledLink to="/app/chat">
+            <ListItem button key="reportsAndComplaints">
+              <ListItemIcon>
+                <LabelIcon />
+              </ListItemIcon>
+              <ListItemText primary="reports and complaints" />
+            </ListItem>
+          </StyledLink>
         </List>
         <Divider />
         <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItem button key="logout">
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText primary="Logout" />
+          </ListItem>
         </List>
       </Drawer>
     </Box>
