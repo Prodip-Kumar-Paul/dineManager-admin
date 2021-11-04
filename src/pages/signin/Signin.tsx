@@ -88,7 +88,7 @@ export default function SignIn() {
         credentials.email.value,
         credentials.password.value
       ) 
-      console.log(res);
+        console.log(res.user.email);
     } catch (err) {
       if( err instanceof Error) {
         errorService("Please provide correct credentials!");
