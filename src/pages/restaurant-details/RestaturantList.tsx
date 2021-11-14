@@ -15,13 +15,20 @@ import {
 
 import list from "../../services/api/list";
 import errorService from "../../services/error-service";
+import { useHistory } from "react-router";
+import SideBar from "../../components/SideBar";
 
 const theme = createTheme();
 
 function ItemList() {
+  let history = useHistory();
+
+  const clickHandler = (): void => {
+    history.push("/details");
+  };
   return (
     <ListItem divider={true}>
-      <ListItemButton>
+      <ListItemButton onClick={clickHandler}>
         <ListItemText primary="Item one" secondary="test@test.com" />
         <ListItemIcon>
           <CheckCircleIcon color="success" />
@@ -72,6 +79,8 @@ export default function RestaurantList() {
             alignItems: "center",
           }}
         >
+          <SideBar />
+
           <h1>Restaurant Lists</h1>
           <List>
             <ItemList />
