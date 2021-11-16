@@ -1,0 +1,13 @@
+{
+  "emulators": {
+    "auth": {
+      "port": null
+    },
+    "database": {
+      "port": 9000
+    },
+    "ui": {
+      "enabled": true
+    }
+  }
+}
