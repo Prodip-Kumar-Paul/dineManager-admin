@@ -7,8 +7,8 @@ import Signin from "../pages/signin/Signin";
 import RestaurantList from "../pages/restaurant-details/RestaturantList";
 import WebApp from "../routes/webapp";
 
-
 import "./App.css";
+import DetailsPage from "../pages/restaurant-details/details-page";
 
 function App() {
   return (
@@ -33,6 +33,9 @@ function App() {
           </Route>
           <Route path="/list">
             <RestaurantList />
+          </Route>
+          <Route path="/details">
+            <DetailsPage />
           </Route>
           <Route path="/">
             <Signin />
