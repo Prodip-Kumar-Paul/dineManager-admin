@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import UploadIcon from '@mui/icons-material/Upload';
-import UploadLogo from "../assets/upload.png";
-
+import UploadIcon from "@mui/icons-material/Upload";
 import Dropzone from "react-dropzone";
-import { fontSize } from "@mui/system";
 
 const dropZoneStyle = {
   backgroundColor: "#FFF",
@@ -21,14 +18,32 @@ const draggingStyle = {
   margin: "auto",
   borderRadius: "10px",
   border: "3px dashed green",
+};
+
+const qrStyle = {
+  maxWidth: "100%",
+  maxHeight: "100%",
+  width: "90%",
+  height: "90%"
 }
 
-export default function DropZone() {
-  const [fileNames, setFileNames] = useState([]);
+const iconStyle = {
+  width: "100%",
+  fontSize: "10rem",
+  paddingTop: "20%",
+}
+
+interface Props {
+  onDrop: (files: Array<File>) => void,
+  fileUrl: undefined | string
+}
+
+export default function DropZone(props: Props) {
   const [isDraging, setIsDragging] = useState(false);
 
-  const handleDrop = (file: Array<File>) => {
-    console.log(file);
+  const handleDrop = (files: Array<File>) => {
+    setIsDragging(false);
+    props.onDrop(files);
   };
 
   return (
@@ -38,17 +53,32 @@ export default function DropZone() {
         accept="image/*"
         minSize={1024}
         maxSize={3072000}
-        onDragOver={() => {setIsDragging(true)}}
-        onDragLeave={() => {setIsDragging(false)}}
+        onDragOver={() => {
+          setIsDragging(true);
+        }}
+        onDragLeave={() => {
+          setIsDragging(false);
+        }}
       >
         {({ getRootProps, getInputProps }) => (
           <div
             {...getRootProps({ backgroundColor: "red" })}
-            style={isDraging ? draggingStyle : dropZoneStyle }
+            style={isDraging ? draggingStyle : dropZoneStyle}
           >
             <input {...getInputProps()} />
-            <p><UploadIcon style={{width: "100%", fontSize: "10rem", paddingTop: "20%"}}/></p>
-            <p><strong>Upload a QR code</strong></p>
+            {!props.fileUrl && (
+              <div>
+                <p>
+                  <UploadIcon
+                    style={iconStyle}
+                  />
+                </p>
+                <p>
+                  <strong>Drop a QR code</strong>
+                </p>
+              </div>
+            )}
+            {props.fileUrl && <img style={qrStyle} src={props.fileUrl} />}
           </div>
         )}
       </Dropzone>
