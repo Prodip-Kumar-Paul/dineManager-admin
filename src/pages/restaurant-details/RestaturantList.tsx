@@ -24,7 +24,7 @@ function ItemList() {
   let history = useHistory();
 
   const clickHandler = (): void => {
-    history.push("/details");
+    history.push("/app/details");
   };
   return (
     <ListItem divider={true}>

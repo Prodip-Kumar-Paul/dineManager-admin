@@ -4,11 +4,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Signin from "../pages/signin/Signin";
-import RestaurantList from "../pages/restaurant-details/RestaturantList";
 import WebApp from "../routes/webapp";
 
 import "./App.css";
-import DetailsPage from "../pages/restaurant-details/details-page";
 
 function App() {
   return (
@@ -30,12 +28,6 @@ function App() {
         <Switch>
           <Route path="/app">
             <WebApp />
-          </Route>
-          <Route path="/list">
-            <RestaurantList />
-          </Route>
-          <Route path="/details">
-            <DetailsPage />
           </Route>
           <Route path="/">
             <Signin />
