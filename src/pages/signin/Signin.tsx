@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -57,6 +58,7 @@ export default function SignIn() {
       hasError: false,
     },
   });
+  const history = useHistory();
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const field = event.currentTarget.id;
@@ -87,10 +89,12 @@ export default function SignIn() {
       const res = await signIn(
         credentials.email.value,
         credentials.password.value
-      ) 
-        console.log(res.user.email);
+      );
+      console.log(res);
+      // Save accesss token to local storage 
+      history.replace("/app");
     } catch (err) {
-      if( err instanceof Error) {
+      if (err instanceof Error) {
         errorService("Please provide correct credentials!");
       }
     }

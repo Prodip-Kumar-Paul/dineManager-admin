@@ -1,5 +1,5 @@
 import { initializeApp, } from "firebase/app";
-import {getAuth, signInWithEmailAndPassword, UserCredential} from "firebase/auth"
+import {getAuth, signInWithEmailAndPassword, UserCredential, OAuthCredential} from "firebase/auth"
 
 import firebaseConfig from "../../firebase-config";
 
